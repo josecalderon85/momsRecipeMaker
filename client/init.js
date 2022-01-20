@@ -8,12 +8,15 @@ class App extends React.Component {
     this.pageRender = this.pageRender.bind(this);
   }
   pageFlip() {
+      //we need to build a get request here and when it responds we need to update the page
+      //given that the key form is using default browser action
+
     console.log(this.props);
   }
   pageRender() {
     switch (this.state.page) {
       case 0:
-        return <KeyForm />;
+        return <KeyForm pageFlip={this.pageFlip}/>;
       case 1:
         return <BasicInfoForm />;
       default:
@@ -25,7 +28,7 @@ class App extends React.Component {
   }
 }
 
-var KeyForm = function () {
+var KeyForm = function (props) {
   return (
     <div>
       <form action="/validate" method="GET">
