@@ -2,11 +2,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 0,
+      page: 2,
     };
     this.pageFlip = this.pageFlip.bind(this);
     this.pageRender = this.pageRender.bind(this);
+    this.loadFile = this.loadFile.bind(this);
   }
+  
+    loadFile (event) {
+        var image = document.getElementById("output");
+        image.src = URL.createObjectURL(event.target.files[0]);
+      };
+    
   pageFlip() {
       //we need to build a get request here and when it responds we need to update the page
       //given that the key form is using default browser action
@@ -19,6 +26,9 @@ class App extends React.Component {
         return <KeyForm pageFlip={this.pageFlip}/>;
       case 1:
         return <BasicInfoForm />;
+      case 2:
+        return <PersonaForm />;
+
       default:
         break;
     }
@@ -64,4 +74,33 @@ var BasicInfoForm = function () {
     </div>
   );
 };
+var PersonaForm = function () {
+    return (
+      <div>
+        <form action="/persona" method="POST">
+          <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;"/>          
+          <br />
+          <label for="file" style="cursor: pointer;">Upload Image</label>
+          <br />
+          <img id="output" width="200" />
+          <br />
+          <label for="color">Color:</label>
+          <br />
+          <input type="text" id="color" name="color" />
+          <br />
+          <label for="animal">Animal:</label>
+          <br />
+          <input type="text" id="animal" name="animal" />
+          <br />
+          <label for="sex">Sex:</label>
+          <br />
+          <input type="text" id="sex" name="sex" />
+          <br />
+          <br />
+          <input type="submit" value="Entra" />
+        </form>
+      </div>
+    );
+  };
+
 ReactDOM.render(<App />, document.getElementById("app"));
