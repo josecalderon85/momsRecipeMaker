@@ -27,7 +27,8 @@ class App extends React.Component {
       case 1:
         return <BasicInfoForm />;
       case 2:
-        return <PersonaForm />;
+        return <
+             />;
 
       default:
         break;
